@@ -1,5 +1,11 @@
+if (Test-Path -Path $env:APPDATA/Spotify/Apps) {
+  Set-Location $env:APPDATA/Spotify/Apps
+} else {
+  Write-Host "Install Spotify from the website!`nhttps://www.spotify.com/download/" -ForegroundColor Red
+  break
+}
+
 Write-Host "Modifying Spotify!"
-Set-Location $env:APPDATA/Spotify/Apps
 Copy-Item xpui.spa xpui.bak
 
 Add-Type -Assembly 'System.IO.Compression.FileSystem'
