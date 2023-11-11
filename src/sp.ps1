@@ -15,7 +15,7 @@ $reader = New-Object System.IO.StreamReader($entry_xpui.Open())
 $xpui_js = $reader.ReadToEnd()
 $reader.Close()
 
-$xpui_js_new = $xpui_js -replace 'adsEnabled:!0', 'adsEnabled:!1' -replace 'allSponsorships' , '' -replace '(.=.=>)"free"', '$1"premium"'
+$xpui_js_new = $xpui_js -replace 'adsEnabled:!0', 'adsEnabled:!1' -replace 'allSponsorships' , '' -replace '(.=.=>)"free"', '$1"premium"' -replace '(case .:|async enable\\(.\\){)(this.enabled=.+?\\(.{1,3},\"audio\"\\),|return this.enabled=...+?\\(.{1,3},\"audio\"\\))((;case 4:)?this.subscription=this.audioApi).+?this.onAdMessage\\)' , '$1$3.cosmosConnector.increaseStreamTime(-100000000000)' 
 
 $writer = New-Object System.IO.StreamWriter($entry_xpui.Open())
 $writer.BaseStream.SetLength(0)
